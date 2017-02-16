@@ -25,6 +25,18 @@ module.exports = function routerFunction(SocketHandlerObj) {
         res.render('game')
     });
 
+    router.get('/games', checkAuthenticationMidSession, function(req, res) {
+        LobbyController = require('./controllers/LobbyController.js');
+        var lobbyController = new LobbyController();
+
+        var lobby = lobbyController.getLobbyObject();
+
+        res.render('game/lobby', {
+            lobby: lobby
+        });
+    });
+
+
     router.post('/login', function(req, res) {
         var username = req.body.username;
         var password = req.body.password;
@@ -34,8 +46,7 @@ module.exports = function routerFunction(SocketHandlerObj) {
 
         req.session.username = username;
 
-        IndexController = require('./controllers/IndexController.js');
-        new IndexController(res).indexAction();
+        res.redirect('/index');
     });
 
     router.post('/register', function(req, res) {
@@ -47,8 +58,7 @@ module.exports = function routerFunction(SocketHandlerObj) {
 
         req.session.username = username;
 
-        IndexController = require('./controllers/IndexController.js');
-        new IndexController(res).indexAction();
+        res.redirect('/index');
     });
 
     router.post('/makeGame', checkAuthenticationMidSession, function(req, res) {
@@ -64,17 +74,6 @@ module.exports = function routerFunction(SocketHandlerObj) {
         req.session.playerType = 'p1';
 
         res.redirect('/game');
-    });
-
-    router.get('/games', checkAuthenticationMidSession, function(req, res) {
-        LobbyController = require('./controllers/LobbyController.js');
-        var lobbyController = new LobbyController();
-
-        var lobby = lobbyController.getLobbyObject();
-
-        res.render('game/lobby', {
-            lobby: lobby
-        });
     });
 
     router.post('/joinGame', checkAuthenticationMidSession, function(req, res) {

@@ -32,23 +32,23 @@ io.on('connection', function(socket){
 
         socket.join(gameName);
 
-        if (games.gameName) {
-            games.gameName += 1;
+        if (games[gameName]) {
+            games[gameName] += 1;
         } else {
-            games.gameName = 1;
+            games[gameName] = 1;
         }
 
-        if (games.gameName == 2) {
+        if (games[gameName] == 2) {
             let playerType = socket.handshake.session.playerType;
             io.sockets.in(gameName).emit('gameStart', {player: playerType});
             console.log('gamestartsend');
         }
-
+console.log(games, gameName);
 
         socket.on('disconnect', function(data){
             io.sockets.in(gameName).emit('gameEnd');
             socket.leave(gameName);
-            games.gameName -= 1;
+            games[gameName] -= 1;
         })
 
         socket.on('positions', function(data){
