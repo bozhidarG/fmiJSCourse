@@ -6,7 +6,7 @@ var sketch = function(p) {
     var ball;
     var me;
     var enemy;
-debugger;
+
      p.setup = function(){
         var canvas = p.createCanvas(800, 400);
         canvas.parent('game-area');
