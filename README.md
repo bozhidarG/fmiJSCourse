@@ -1,4 +1,4 @@
-# fmiJSCourse
+#s fmiJSCourse
 
 Pong for two (learning project for a university course)
 
