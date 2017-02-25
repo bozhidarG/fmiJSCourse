@@ -43,7 +43,6 @@ io.on('connection', function(socket){
             io.sockets.in(gameName).emit('gameStart', {player: playerType});
             console.log('gamestartsend');
         }
-console.log(games, gameName);
 
         socket.on('disconnect', function(data){
             io.sockets.in(gameName).emit('gameEnd');

@@ -6,6 +6,9 @@ var sketch = function(p) {
     var ball;
     var me;
     var enemy;
+    var leftScore = 0;
+    var rightScore = 0;
+    var scored = false;
 
      p.setup = function(){
         var canvas = p.createCanvas(800, 400);
@@ -39,6 +42,31 @@ var sketch = function(p) {
             ball.changeDirection(p1);
         } else if (ball.hit(p2)) {
             ball.changeDirection(p2);
+        }
+
+        p.textSize(32);
+
+        p.text(leftScore, 10, 30);
+        p.fill(150, 0, 255);
+        p.text(rightScore, p.width - 50, 30);
+        p.fill(150, 0, 255);
+
+        if (ball.missLeft() && ! scored) {
+            rightScore ++;
+            ball.change({
+                yPos: p.height/2,
+                xPos: p.width/2,
+                dir: -1,
+                ySpeedFactor: 0
+            });
+        } else if (ball.missRight() && !scored) {
+            leftScore ++;
+            ball.change({
+                yPos: p.height/2,
+                xPos: p.width/2,
+                dir: -1,
+                ySpeedFactor: 0
+            });
         }
     }
 

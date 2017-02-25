@@ -68,4 +68,12 @@ class Ball {
         // this.xSpeedFactor += 0.2;
         this.xDirection *= -1;
     }   
+
+    missLeft() {
+        return this.xPos < 0;
+    }
+
+    missRight() {
+        return this.xPos > this.p.width;
+    }
 }
